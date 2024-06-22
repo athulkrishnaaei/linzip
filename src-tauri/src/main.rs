@@ -1,15 +1,13 @@
-
+use dotenv::dotenv;
+use serde::Deserialize;
+use serde::Serialize;
+use std::env;
+use std::fs::File;
 use std::process::Command;
 use tauri::command;
-use std::fs::File;
 use zip::read::ZipArchive;
-use serde::Serialize;
-use serde::Deserialize;
-use std::env;
-use dotenv::dotenv;
 
-#[derive(Deserialize)]
-#[derive(Debug, Serialize)]
+#[derive(Deserialize, Debug, Serialize)]
 struct ZipFileMetadata {
     name: String,
     size: u64,
@@ -20,7 +18,8 @@ struct ZipFileMetadata {
 #[command]
 fn get_file_path(filename: String) -> String {
     dotenv().ok();
-    let base_directory = env::var("ZIP_FILE_DIRECTORY").unwrap_or_else(|_| "/default/path".to_string());
+    let base_directory =
+        env::var("ZIP_FILE_DIRECTORY").unwrap_or_else(|_| "/default/path".to_string());
     let filepath = format!("{}/{}", base_directory, filename);
 
     filepath
@@ -40,7 +39,8 @@ fn read_zip_file(filepath: String, password: Option<String>) -> Result<ZipFileMe
 
         if output.status.success() {
             let stdout = String::from_utf8_lossy(&output.stdout);
-            let files: Vec<String> = stdout.lines()
+            let files: Vec<String> = stdout
+                .lines()
                 .skip(3) // Skip the first three lines which are headers
                 .filter_map(|line| {
                     let parts: Vec<&str> = line.split_whitespace().collect();
@@ -79,7 +79,12 @@ fn read_zip_file(filepath: String, password: Option<String>) -> Result<ZipFileMe
         }
 
         let compressed_size: u64 = (0..archive.len())
-            .map(|i| archive.by_index(i).map(|f| f.compressed_size()).unwrap_or(0))
+            .map(|i| {
+                archive
+                    .by_index(i)
+                    .map(|f| f.compressed_size())
+                    .unwrap_or(0)
+            })
             .sum();
 
         let metadata = ZipFileMetadata {
@@ -95,11 +100,7 @@ fn read_zip_file(filepath: String, password: Option<String>) -> Result<ZipFileMe
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![read_zip_file,get_file_path])
+        .invoke_handler(tauri::generate_handler![read_zip_file, get_file_path])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
-
-
-
-
