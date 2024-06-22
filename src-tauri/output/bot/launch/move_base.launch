@@ -1,0 +1,8 @@
+<launch>
+  <node name="move_base" pkg="move_base" type="move_base" output="screen">
+    <rosparam file="$(find bot)/param/costmap_common_params.yaml" command="load" />
+    <rosparam file="$(find bot)/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find bot)/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find bot)/param/trajectory_planner.yaml" command="load" />
+  </node>
+</launch>

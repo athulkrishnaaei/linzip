@@ -14,11 +14,15 @@ tauri-build = { version = "1", features = [] }
 tauri = { version = "1", features = [ "api-all"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
-zip = "0.5.13"
+
 log = "0.4"
 simplelog = "0.11"
-aes = "0.7"
-hex = "0.4"
+
+zip = "0.5.13"
+aes = "0.7.5"
+hex = "0.4.3"
+sha2 = "0.10.6"
+
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

@@ -1,0 +1,25 @@
+<launch>
+    <!-- Include the empty_world.launch file from gazebo_ros and pass arguments -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find bot)/worlds/house.world" />
+        <arg name="paused" value="true"/> <!-- Start the simulation paused -->
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+
+    <!-- Load the URDF into the parameter server -->
+    <param name="robot_description" textfile="$(find bot)/urdf/bot.urdf" />
+
+    <!-- Joint state publisher -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+
+    <!-- Robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/> 
+
+    <!-- Spawn the robot model in Gazebo -->
+    <node name="spawn_model" pkg="gazebo_ros" type="spawn_model" 
+          args="-param robot_description -urdf -model bot" 
+          output="screen" />
+</launch>
