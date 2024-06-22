@@ -16,6 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('app').style.display = 'block';
     });
 
+   
+    document.getElementById('returnButton').addEventListener('click', () => {
+        document.getElementById('app').style.display = 'none';
+        document.getElementById('welcomeScreen').style.display = 'block';
+        document.getElementById('returnButton').style.display = 'none';
+    });
+
+
     document.getElementById('openZipButton').addEventListener('click', async () => {
         const fileInput = document.getElementById('fileInput');
         const passwordInput = document.getElementById('passwordInput');
@@ -28,18 +36,32 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        console.log("File path  ==  "  + fileInput.files[0].name)
+       
+        const file = fileInput.files[0];
+        
+        // // Using for...in loop
+        // for (const prop in file) {
+        //     console.log(`${prop}: ${file[prop]}`);
+        // }
+
+        // // Using Object.keys
+        //     Object.keys(file).forEach((key) => {
+        //     console.log(`${key}: ${file[key]}`);
+        // });
+
         const password = passwordInput.value || null;  // Convert empty string to null
         
         
         filename =fileInput.files[0].name;
-        const filepath = "/home/athul/linzip/src-tauri/"+filename;
+        const filepath = await invoke('get_file_path', { filename });
+        console.log("File path  ==  "  + filepath)
+       
 
         try {
             // Send the file path and password to the Rust backend
             const response = await invoke('read_zip_file', { filepath: filepath, password});
             const zipData = response;
-            console.log("Zip data  " + zipData.name)
+            // console.log("Zip data  " + zipData.name)
             metadataDiv.innerHTML = `
                 <h2>Metadata</h2>
                 <p>Name: ${filename}</p>
@@ -64,10 +86,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 li.textContent = path;
                 recentZipsList.appendChild(li);
             });
-
+            // Show the return button only after successfully unzipping
+        document.getElementById('returnButton').style.display = 'block';
         } catch (error) {
-            console.error('Error reading ZIP file:', error);
-            alert('Error reading ZIP file: ' + error);
+            console.error('Error reading ZIP file or this file is password protected:', error);
+            alert('Error reading ZIP file or this file is password protected: ' + error);
         }
     });
 

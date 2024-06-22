@@ -1,10 +1,12 @@
+
 use std::process::Command;
 use tauri::command;
 use std::fs::File;
 use zip::read::ZipArchive;
-use zip::result::ZipError;
 use serde::Serialize;
 use serde::Deserialize;
+use std::env;
+use dotenv::dotenv;
 
 #[derive(Deserialize)]
 #[derive(Debug, Serialize)]
@@ -16,13 +18,12 @@ struct ZipFileMetadata {
 }
 
 #[command]
-fn greet() -> String {
-    "Hello from Rust!".into()
-}
+fn get_file_path(filename: String) -> String {
+    dotenv().ok();
+    let base_directory = env::var("ZIP_FILE_DIRECTORY").unwrap_or_else(|_| "/default/path".to_string());
+    let filepath = format!("{}/{}", base_directory, filename);
 
-#[command]
-fn perform_addition(num1: f64, num2: f64) -> f64 {
-    num1 + num2
+    filepath
 }
 
 #[command]
@@ -94,7 +95,11 @@ fn read_zip_file(filepath: String, password: Option<String>) -> Result<ZipFileMe
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![read_zip_file, perform_addition, greet])
+        .invoke_handler(tauri::generate_handler![read_zip_file,get_file_path])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
+
+
+
+
