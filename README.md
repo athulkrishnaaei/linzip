@@ -21,7 +21,7 @@ The Tauri ZIP File Reader is a desktop application built using Tauri that allows
 1. Clone the repository:
    ```sh
    git clone https://github.com/athulkrishnaaei/linzip.git
-   cd tauri-zip-reader
+   cd linzip
 2. Install Rust dependencies
     cargo install
 
