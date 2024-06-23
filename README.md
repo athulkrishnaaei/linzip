@@ -24,11 +24,6 @@ The Tauri ZIP File Reader is a desktop application built using Tauri that allows
    cd tauri-zip-reader
 2. Install Rust dependencies
     cargo install
-### Configuration
-    Create a .env file in the project root directory with the following content:
-
-    ZIP_FILE_DIRECTORY=/path/to/your/zip/files 
-
 
 ### Running the application
  cargo tauri dev

@@ -1,4 +1,3 @@
-// use dotenv::dotenv;
 use serde::Deserialize;
 use serde::Serialize;
 use std::env;
@@ -14,16 +13,6 @@ struct ZipFileMetadata {
     compressed_size: u64,
     files: Vec<String>,
 }
-
-// #[command]
-// fn get_file_path(filename: String) -> String {
-//     dotenv().ok();
-//     let base_directory =
-//         env::var("ZIP_FILE_DIRECTORY").unwrap_or_else(|_| "/default/path".to_string());
-//     let filepath = format!("{}/{}", base_directory, filename);
-
-//     filepath
-// }
 
 #[command]
 fn read_zip_file(filepath: String, password: Option<String>) -> Result<ZipFileMetadata, String> {

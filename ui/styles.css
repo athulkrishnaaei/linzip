@@ -3,6 +3,10 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
 }
 
 #welcomeScreen, #app {
@@ -12,6 +16,7 @@ body {
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    text-align: center;
 }
 
 h1, h2 {
@@ -26,6 +31,7 @@ button {
     cursor: pointer;
     border-radius: 4px;
     font-size: 16px;
+    margin: 10px 0;
 }
 
 button:hover {
@@ -53,6 +59,7 @@ li {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    text-align: left;
 }
 
 #metadata, #resultDisplay {
@@ -61,6 +68,7 @@ li {
 
 #recentZipsWelcome, #recentZips {
     margin-top: 20px;
+    text-align: left;
 }
 
 #fileListContainer {
@@ -71,4 +79,16 @@ li {
     padding: 10px;
     border-radius: 4px;
     background-color: #f9f9f9;
+    text-align: left;
+}
+#selectedFileName {
+    margin-top: 20px;
+    color: #555555;
+    font-size: 18px;
+}
+.center-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
 }

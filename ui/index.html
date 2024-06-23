@@ -1,37 +1,3 @@
-<!-- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZIP File Reader and Addition App</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div id="welcomeScreen">
-        <h1>Welcome to ZIP File Reader</h1>
-        <h2>Recently Opened ZIP Files</h2>
-        <ul id="recentZipsWelcome"></ul>
-        <button id="proceedButton">Proceed to App</button>
-    </div>
-
-    <div id="app" style="display:none;">
-        <h1>ZIP File Reader</h1>
-         <input type="file" id="fileInput" accept=".zip"> 
-        <button id="openFileButton">Select ZIP File</button>
-        <p id="selectedFileName" style="font-weight: bold;"></p>
-        <input type="password" id="passwordInput" placeholder="Enter password (if any)">
-        <button id="openZipButton">Open ZIP</button>
-        <div id="metadata"></div>
-        <ul id="fileList"></ul>
-        
-        <h2>Recent ZIPs</h2>
-        <ul id="recentZips"></ul>
-    </div>
-    <button id="returnButton" style="display:none; ">Return to Home</button>
-    <script src="index.js"></script>
-</body>
-</html> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,7 +26,9 @@
         </div>
         <h2>Recent ZIPs</h2>
         <ul id="recentZips"></ul>
-        <button id="returnButton" style="display:none;" class="btn">Return to Welcome Screen</button>
+        <div class="center-button">
+            <button id="returnButton" style="display:none;" class="btn">Return to Welcome Screen</button>
+        </div>
     </div>
     <script src="index.js"></script>
 </body>
